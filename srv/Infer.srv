@@ -1,0 +1,20 @@
+# filename of which .mln model file should be used
+string model
+
+# number of old and new clusters (n,m)
+uint32 num_old_clusters
+uint32 num_new_clusters
+
+# nxm matrices of probabilities of similarity
+float64[] similarAppearance
+float64[] similarPose
+
+# list of indices, which old clusters are out of view?
+uint32[] out_of_view
+
+# query predicates
+string[] queries
+---
+InferenceResult[] results
+int32[] persistent
+int32[] new_to_old
