@@ -171,7 +171,7 @@ class EntResServer:
       oC = "O%i" % o
       for n in range(req.num_new_clusters):
         nC = "N%i" % n
-        idx = o * req.num_old_clusters + n
+        idx = n * req.num_old_clusters + o
         simA = req.similarAppearance[idx]
         simP = req.similarPose[idx]
         self.db.append ("%f looksSimilar(%s,%s)\n" % (simA,oC,nC))
