@@ -1,12 +1,24 @@
 # -*- coding: iso-8859-1 -*-
-import roslib; roslib.load_manifest('probcog')
+import roslib; roslib.load_manifest('entres')
 import rospy
-import probcog.srv as srv
+import entres.srv as srv
 
-rospy.wait_for_service('probcog_infer')
-infer = rospy.ServiceProxy('probcog_infer', srv.Infer)
+rospy.wait_for_service('entres_server')
+infer = rospy.ServiceProxy('entres_server', srv.Infer)
 try:
-  response = infer(model="meals_bln", evidence=["takesPartIn(P,M)"], queries=["consumesAnyIn"])
+  response = infer(
+      model="er-persists-actions.mln",
+      num_old_clusters = 2,
+      num_new_clusters = 3,
+      similarAppearance = [0.0,0.0,
+                           0.0,0.0,
+                           0.0,0.0],
+      similarPose = [1.0,0.0,
+                     0.0,0.0,
+                     0.0,0.0],
+      out_of_view = [1,2],
+      queries=["is","explainOld","explainNew"]
+      )
   print response
 except rospy.ServiceException, e:
   print "Service did not process request: %s" % str(e)

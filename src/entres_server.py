@@ -4,6 +4,7 @@ import roslib; roslib.load_manifest('entres')
 from entres.srv import Infer, InferResponse
 from entres.msg import InferenceResult
 import rospy
+import rospkg
 
 import sys
 import os
@@ -35,9 +36,9 @@ class MLNInfer(object):
         self.pymlns_methods = MLN.InferenceMethods.getNames()
         self.alchemy_methods = {"MC-SAT":"-ms", "Gibbs sampling":"-p", "simulated tempering":"-simtp", "MaxWalkSAT (MPE)":"-a", "belief propagation":"-bp"}
         self.jmlns_methods = {"MaxWalkSAT (MPE)":"-mws", "MC-SAT":"-mcsat", "Toulbar2 B&B (MPE)":"-t2"}
-        self.default_settings = {"numChains":"1", "maxSteps":"", "saveResults":False, "convertAlchemy":False, "openWorld":True} # a minimal set of settings required to run inference
+        self.default_settings = {"numChains":"1", "maxSteps":"1000", "saveResults":False, "convertAlchemy":False, "openWorld":True} # a minimal set of settings required to run inference
     
-    def run(self, mlnFiles, evidenceDB, method, queries, engine="PyMLNs", output_filename=None, params="", **settings):
+    def run(self, mlnFiles, evidenceDB, method, queries, engine="PyMLNs", output_filename="", params="{}", **settings):
         '''
             runs an MLN inference method with the given parameters
         
@@ -60,7 +61,7 @@ class MLNInfer(object):
         self.settings.update(settings)
         input_files = mlnFiles
         db = evidenceDB
-        query = queries
+        query = ",".join(queries)
         
         results_suffix = ".results"
         output_base_filename = output_filename
@@ -69,7 +70,7 @@ class MLNInfer(object):
         
         # determine closed-world preds
         cwPreds = []
-        if "cwPreds" in self.settings:            
+        if "cwPreds" in self.settings:
             cwPreds = filter(lambda x: x != "", map(str.strip, self.settings["cwPreds"].split(",")))
         haveOutFile = False
         results = None
@@ -78,16 +79,18 @@ class MLNInfer(object):
         if engine in ("internal", "PyMLNs"): 
             try:
                 print "\nStarting %s...\n" % method
+                print "\nqueries: %s...\n" % queries
                 
                 # read queries
-                queries = []
+                _queries = []
                 q = ""
-                for s in map(str.strip, query.split(",")):
+                for s in queries:
                     if q != "": q += ','
                     q += s
                     if MLN.balancedParentheses(q):
-                        queries.append(q)
+                        _queries.append(q)
                         q = ""
+                print "\n_queries: %s...\n" % _queries
                 if q != "": raise Exception("Unbalanced parentheses in queries!")
                 
                 # create MLN
@@ -134,7 +137,7 @@ class MLNInfer(object):
                         mrf.writeGraphML(graphml_filename)
                     
                 # invoke inference and retrieve results
-                mrf.infer(queries, **args)
+                mrf.infer(_queries, **args)
                 results = {}
                 for gndFormula, p in mrf.getResultsDict().iteritems():
                     results[str(gndFormula)] = p
@@ -146,33 +149,6 @@ class MLNInfer(object):
                 cls, e, tb = sys.exc_info()
                 sys.stderr.write("Error: %s\n" % str(e))
                 traceback.print_tb(tb)
-                
-        elif engine == "J-MLNs": # engine is J-MLNs (ProbCog's Java implementation)
-            
-            # create command to execute
-            app = "MLNinfer"
-            params = [app, "-i", ",".join(input_files), "-e", db, "-q", query, self.jmlns_methods[method]] + shlex.split(params)
-            if self.settings["saveResults"]:
-                params += ["-r", output_filename]
-            if self.settings["maxSteps"] != "":
-                params += ["-maxSteps", self.settings["maxSteps"]]
-            if len(cwPreds) > 0:
-                params += ["-cw", ",".join(cwPreds)]
-            outFile = None
-            if self.settings["saveResults"]:
-                outFile = output_filename
-                params += ["-r", outFile]
-            
-            # execute
-            params = map(str, params)
-            print "\nStarting J-MLNs..."
-            print "\ncommand:\n%s\n" % " ".join(params)
-            t_start = time.time()
-            call(params)
-            t_taken = time.time() - t_start
-            
-            if outFile is not None:
-                results = dict(readAlchemyResults(outFile))
             
         return results
 
@@ -204,7 +180,7 @@ class EntResServer:
     # add out of view clusters
     self.db.append("\n")
     for unobserved in req.out_of_view:
-      self.db.append("outOfView(O%i)" % unobserved)
+      self.db.append("outOfView(O%i)\n" % unobserved)
 
   def handle_inference(self,req):
     print req.model
@@ -212,11 +188,23 @@ class EntResServer:
     print req.num_old_clusters
     print req.similarAppearance
     print req.similarPose
-    print req.unobserved
+    print req.out_of_view
     print req.queries
 
     self.create_db(req)
-    input_files = [req.model]
+
+    ros_root = rospkg.get_ros_root()
+    r = rospkg.RosPack()
+    depends = r.get_depends('roscpp')
+    path = r.get_path('rospy')
+    model_dir = r.get_path('entres')
+    
+    model_file = os.path.join (model_dir, "models" ,req.model)
+    if not os.path.exists (model_file):
+      raise Exception ("model file '%s' does not exist" % model_file)
+      return
+
+    input_files = [model_file]
 
     db = ""
     with tempfile.NamedTemporaryFile(mode='w', prefix='tmp_er_', delete=False) as f:
@@ -225,32 +213,45 @@ class EntResServer:
       db = f.name
 
     method = "MC-SAT"
-    params = ""
-    
+    params = "{}"
+
+    self.settings = {"cwPreds":"outOfView"}
 
     try:
-      self.inference.run(input_files, db, method, self.settings["query"], params=params, **self.settings)
+      results = self.inference.run(input_files, db, method, req.queries, params=params, **self.settings)
     except:
+      os.remove(db)
       cls, e, tb = sys.exc_info()
       sys.stderr.write("Error: %s\n" % str(e))
       traceback.print_tb(tb)
+      raise Exception ("MLN inference failed: %s" % str (e))
+      return
 
+    os.remove(db)
 
-    
+    return self.parse_results(results)
+
+  def parse_results (self, results):
     resp = InferResponse()
-    r = InferenceResult()
-    r.functionName = "is"
-    r.params=["o1","n3"]
-    r.probability = 0.99
-    resp.results = [r]
+    resp.results = []
+
+    for gndFormula, p in results.iteritems():
+      tmp = gndFormula.split ("(")
+      if len(tmp) != 2:
+        raise Exception ("unexpected Error when parsing result predicate: %s", gndFormula)
+      pred = tmp[0]
+      params = tmp[1].strip(")").split(",")
+      ir = InferenceResult(functionName=pred, params=params, probability=p)
+      resp.results.append (ir)
+
     resp.persistent = [1,2]
     resp.new_to_old = [3,4]
-
     return resp
+
 
   def serve(self):
     rospy.init_node('entres_server')
-    rospy.Service('infer', Infer, self.handle_inference)
+    rospy.Service('entres_server', Infer, self.handle_inference)
     print "Ready to resolve some identities!"
     rospy.spin()
 
