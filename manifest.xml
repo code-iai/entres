@@ -1,0 +1,16 @@
+<package>
+  <description brief="probcog">
+
+     entres
+
+  </description>
+  <author>Nico Blodow</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/entres</url>
+
+  <depend package="rospy" />
+
+</package>
+
+
