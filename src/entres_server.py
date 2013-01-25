@@ -235,7 +235,9 @@ class EntResServer:
     resp = InferResponse()
     resp.results = []
 
-    for gndFormula, p in results.iteritems():
+    sorted_results = results.items()
+    sorted_results.sort()
+    for gndFormula, p in sorted_results:
       tmp = gndFormula.split ("(")
       if len(tmp) != 2:
         raise Exception ("unexpected Error when parsing result predicate: %s", gndFormula)
