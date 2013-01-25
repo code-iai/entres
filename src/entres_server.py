@@ -182,6 +182,8 @@ class EntResServer:
     for unobserved in req.out_of_view:
       self.db.append("outOfView(O%i)\n" % unobserved)
 
+    print "\n --- Evidence --- \n%s" % self.db
+
   def handle_inference(self,req):
     print req.model
     print req.num_new_clusters
@@ -229,11 +231,13 @@ class EntResServer:
 
     os.remove(db)
 
-    return self.parse_results(results)
+    return self.parse_results(results, req)
 
-  def parse_results (self, results):
+  def parse_results (self, results, req):
     resp = InferResponse()
     resp.results = []
+    resp.persistent = []
+    resp.new_to_old = []
 
     sorted_results = results.items()
     sorted_results.sort()
@@ -246,8 +250,24 @@ class EntResServer:
       ir = InferenceResult(functionName=pred, params=params, probability=p)
       resp.results.append (ir)
 
-    resp.persistent = [1,2]
-    resp.new_to_old = [3,4]
+      if p > 0.75 and pred == "explainOld" and params[1] == "PERSIST":
+        resp.persistent.append (int(params[0][1:]))
+
+    # for each new cluster, it either : "IS" an old one, or it appeared, or it persisted earlier
+
+    for n in range (req.num_new_clusters):
+      most_likely = None
+      highest_p = 0
+      for o in range (req.num_old_clusters):
+        p = results["is(O%i,N%i)"%(o,n)]
+        if p > highest_p:
+          most_likely = o
+          highest_p = p
+      p = results["explainNew(N%i,APPEAR)"%n]
+      if p > highest_p:
+        most_likely = -1
+      resp.new_to_old.append (most_likely)
+
     return resp
 
 
