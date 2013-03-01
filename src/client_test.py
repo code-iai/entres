@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 import roslib; roslib.load_manifest('entres')
 import rospy

@@ -36,7 +36,7 @@ class MLNInfer(object):
         self.pymlns_methods = MLN.InferenceMethods.getNames()
         self.alchemy_methods = {"MC-SAT":"-ms", "Gibbs sampling":"-p", "simulated tempering":"-simtp", "MaxWalkSAT (MPE)":"-a", "belief propagation":"-bp"}
         self.jmlns_methods = {"MaxWalkSAT (MPE)":"-mws", "MC-SAT":"-mcsat", "Toulbar2 B&B (MPE)":"-t2"}
-        self.default_settings = {"numChains":"1", "maxSteps":"1000", "saveResults":False, "convertAlchemy":False, "openWorld":True} # a minimal set of settings required to run inference
+        self.default_settings = {"numChains":"1", "maxSteps":"100", "saveResults":False, "convertAlchemy":False, "openWorld":True} # a minimal set of settings required to run inference
     
     def run(self, mlnFiles, evidenceDB, method, queries, engine="PyMLNs", output_filename="", params="{}", **settings):
         '''
