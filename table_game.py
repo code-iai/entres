@@ -47,7 +47,17 @@ class Object:
     self.name = name
     self.create_appearance ()
     self.create_pose ()
-    self.truth = "."
+    self.truth = "s"
+
+  def set_truth (self, t):
+    if t == "s":
+      self.truth = t
+      return
+
+    if self.truth == "s":
+      self.truth = t
+    else:
+      self.truth += t
 
   def oldName (self):
     return self.name.replace ("DB","O")
@@ -116,7 +126,7 @@ class TableGame:
     table = random.randrange (0, number_tables) 
     logger.info ("adding object to table %i\n" % table)
     obj.create_pose ()
-    obj.truth = '+'
+    obj.set_truth ('a')
     self.tables[table].append (obj)
     logger.info ("action: ")
     logger.screen_info ("+%s "%obj.name)
@@ -133,7 +143,7 @@ class TableGame:
 
     logger.info ("removing object from table %i\n" % table)
     obj = random.choice (self.tables[table])
-    obj.truth = '-'
+    obj.set_truth ('d')
     self.tables[table].remove(obj)
     self.shelf.append(obj)
     logger.info ("action: ")
@@ -152,7 +162,7 @@ class TableGame:
     obj = random.choice (self.tables[table_from])
     self.tables[table_from].remove(obj)
     obj.create_pose ()
-    obj.truth = '~'
+    obj.set_truth ('m')
     self.tables[table_to].append (obj)
     logger.info ("action: ")
     logger.screen_info ("~%s "%obj.name)
@@ -171,10 +181,10 @@ class TableGame:
   def do_time_step (self):
     self.oldClusters = self.newClusters
     for o in self.oldClusters:
-      o.truth = '.'
+      o.set_truth('s')
       for table in self.tables:
         for o in table:
-          o.truth = '.'
+          o.set_truth ('s')
 
     self.newClusters = []
     for _ in range (number_actions):
@@ -208,5 +218,5 @@ class TableGame:
         state.similar_pose.append (o.similarPos(n))
 
     state.out_of_view = []
-    print state
+    #print state
     return state
