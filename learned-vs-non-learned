@@ -1,0 +1,11 @@
+non-learned:
+
+success: 368
+fail: 90
+total: 458
+
+
+learned:
+success: 0
+fail: 500
+total:500
