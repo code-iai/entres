@@ -1,0 +1,27 @@
+// old: [DB9p, DB5p, DB8s, DB0d, DB7s, DB2m]
+// new: [DB8s, DB7s, DB1a, DB2m]
+
+oldClusters={O5,O0,O7,O2}
+newClusters={N7,N1,N2}
+
+looksSimilar(O7,N7)
+samePos(O7,N7)
+looksSimilar(O2,N2)
+samePos(O2,N2)
+
+isPersisting(O0)
+isPersisting(O7)
+isPersisting(O2)
+outOfView(O5)
+
+
+
+
+
+
+
+
+
+
+
+

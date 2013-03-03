@@ -1,0 +1,26 @@
+// old: [DB2m, DB6d]
+// new: [DB2m, DB5a]
+
+oldClusters={O2,O6}
+newClusters={N2,N5}
+
+0.890829 looksSimilar(O2,N2)
+0.999409 samePos(O2,N2)
+0.180961 looksSimilar(O6,N2)
+0.012022 samePos(O6,N2)
+0.024889 looksSimilar(O2,N5)
+0.038068 samePos(O2,N5)
+0.408798 looksSimilar(O6,N5)
+0.000001 samePos(O6,N5)
+
+
+is(O2,N2)
+!is(O6,N2)
+!is(O2,N5)
+!is(O6,N5)
+
+explainOld(O2,MOVE)
+explainOld(O6,DISAPPEAR)
+
+explainNew(N2,MOVE)
+explainNew(N5,APPEAR)

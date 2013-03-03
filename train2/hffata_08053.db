@@ -1,0 +1,19 @@
+// old: [DB3d, DB0s]
+// new: [DB0s]
+
+oldClusters={O3,O0}
+newClusters={N0}
+
+0.115508 looksSimilar(O3,N0)
+0.437092 samePos(O3,N0)
+0.866815 looksSimilar(O0,N0)
+0.986388 samePos(O0,N0)
+
+
+!is(O3,N0)
+is(O0,N0)
+
+explainOld(O3,DISAPPEAR)
+explainOld(O0,STAY)
+
+explainNew(N0,STAY)

@@ -1,0 +1,22 @@
+// domain declarations
+Explanations={MOVE,STAY,NEWVIEW,NOT}
+
+// predicate declarations
+outOfView(oldCluster)
+looksSimilar(oldCluster, newCluster)
+appeared(newCluster)
+is(oldCluster, newCluster, Explanations!)
+isPersisting(oldCluster)
+disappeared(oldCluster)
+hidden(oldCluster)
+samePos(oldCluster, newCluster)
+
+// formulas
+(is(a, c, e1) ^ is(b, c, e2) ^ !(e1=NOT) ^ !(e2=NOT)) => a=b.
+(is(c, a, e1) ^ is(c, b, e2) ^ !(e1=NOT) ^ !(e2=NOT)) => a=b.
+is(o, n, STAY) <=> (looksSimilar(o, n) ^ samePos(o, n)).
+is(o, n, MOVE) <=> (looksSimilar(o, n) ^ !samePos(o, n)).
+is(o, n, NEWVIEW) <=> (!looksSimilar(o, n) ^ samePos(o, n)).
+!(EXIST o ((is(o, n, STAY) v is(o, n, MOVE) v is(o, n, NEWVIEW)))) <=> appeared(n).
+(!(EXIST n ((is(o, n, STAY) v is(o, n, MOVE) v is(o, n, NEWVIEW)))) ^ !outOfView(o)) <=> disappeared(o).
+(!(EXIST n ((is(o, n, STAY) v is(o, n, MOVE) v is(o, n, NEWVIEW)))) ^ outOfView(o)) <=> hidden(o).

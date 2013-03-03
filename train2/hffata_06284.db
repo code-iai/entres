@@ -1,0 +1,15 @@
+// old: [DB6d]
+// new: [DB0a]
+
+oldClusters={O6}
+newClusters={N0}
+
+0.091085 looksSimilar(O6,N0)
+0.005002 samePos(O6,N0)
+
+
+!is(O6,N0)
+
+explainOld(O6,DISAPPEAR)
+
+explainNew(N0,APPEAR)

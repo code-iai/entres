@@ -1,0 +1,82 @@
+// domain declarations
+Explanations={MOVE,STAY,NEWVIEW,NOT}
+
+// predicate declarations
+// queries
+is(oldCluster, newCluster, Explanations!)
+
+
+moved(oldCluster,newCluster)
+stayed(oldCluster,newCluster)
+newView(oldCluster,newCluster)
+not(oldCluster,newCluster)
+
+disappeared(oldCluster)
+appeared(newCluster)
+hidden(oldCluster)
+
+// evidence
+looksSimilar(oldCluster, newCluster)
+samePos(oldCluster, newCluster)
+
+isPersisting(oldCluster)
+outOfView(oldCluster)
+
+moved(o,n) ^ moved(o2,n) => (o=o2).
+stayed(o,n) ^ stayed(o2,n) => (o=o2).
+newView(o,n) ^ newView(o2,n) => (o=o2).
+
+moved(o,n) => !stayed(o,n) ^ !newView(o,n).
+stayed(o,n) => !moved(o,n) ^ !newView(o,n).
+newView(o,n) => !moved(o,n) ^ !stayed(o,n).
+
+
+not(o,n) <=> !moved(o,n) ^ !stayed(o,n) ^ !newView(o,n).
+
+not(o,n) ^ outOfView(o) <=> hidden(o).
+not(o,n) ^ !outOfView(o) <=> disappeared(o).
+(forall o (not(o,n))) <=> appeared(n).
+
+// 5 stayed(o,n) <=> !moved(o,n) ^ !newView(o,n) ^ !appeared(n) ^ !disappeared(o) ^ !hidden(o) ^ !not(o,n)
+// 5 moved(o,n) <=> !stayed(o,n) ^ !newView(o,n) ^ !appeared(n) ^ !disappeared(o) ^ !hidden(o) ^ !not(o,n)
+// 5 newView(o,n) <=> !moved(o,n) ^ !stayed(o,n) ^ !appeared(n) ^ !disappeared(o) ^ !hidden(o) ^ !not(o,n)
+// 5 appeared(n) <=> !moved(o,n) ^ !newView(o,n) ^ !stayed(o,n) ^ !disappeared(o) ^ !hidden(o) ^ not(o,n)
+// 5 disappeared(o) <=> !moved(o,n) ^ !newView(o,n) ^ !appeared(n) ^ !stayed(o,n) ^ !hidden(o) ^ not(o,n)
+// 5 hidden(o) <=> !moved(o,n) ^ !newView(o,n) ^ !appeared(n) ^ !disappeared(o) ^ !stayed(o,n) ^ not(o,n)
+
+
+
+5 stayed(o,n)  <=>  looksSimilar(o,n) ^  samePos(o,n)
+5 moved(o,n)   <=>  looksSimilar(o,n) ^ !samePos(o,n)
+5 newView(o,n) <=> !looksSimilar(o,n) ^  samePos(o,n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

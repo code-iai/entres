@@ -1,0 +1,22 @@
+// O1,N3,N4,N5 are indiscernible
+
+oldClusters={O1,O2}
+newClusters={N3,N4,N5}
+
+looksSimilar(O1,N3)
+samePos(O1,N3)
+!looksSimilar(O1,N4)
+!samePos(O1,N4)
+!looksSimilar(O1,N5)
+!samePos(O1,N5)
+
+!looksSimilar(O2,N3)
+!samePos(O2,N3)
+!looksSimilar(O2,N4)
+!samePos(O2,N4)
+!looksSimilar(O2,N5)
+!samePos(O2,N5)
+
+
+
+

@@ -1,0 +1,36 @@
+// old: [DB1p, DB6p, DB7p]
+// new: [DB4s, DB0a]
+
+oldClusters={O1,O6,O7}
+newClusters={N4,N0}
+
+0.009063 looksSimilar(O1,N4)
+0.000000 samePos(O1,N4)
+0.108154 looksSimilar(O6,N4)
+0.000000 samePos(O6,N4)
+0.005146 looksSimilar(O7,N4)
+0.000000 samePos(O7,N4)
+0.003127 looksSimilar(O1,N0)
+0.116805 samePos(O1,N0)
+0.104853 looksSimilar(O6,N0)
+0.105086 samePos(O6,N0)
+0.024999 looksSimilar(O7,N0)
+0.000001 samePos(O7,N0)
+
+outOfView(O1)
+outOfView(O6)
+outOfView(O7)
+
+!is(O1,N4)
+!is(O6,N4)
+!is(O7,N4)
+!is(O1,N0)
+!is(O6,N0)
+!is(O7,N0)
+
+explainOld(O1,PERSIST)
+explainOld(O6,PERSIST)
+explainOld(O7,PERSIST)
+
+explainNew(N4,STAY)
+explainNew(N0,APPEAR)

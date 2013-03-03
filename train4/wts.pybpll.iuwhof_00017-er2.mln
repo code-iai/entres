@@ -1,0 +1,31 @@
+// domain declarations
+Explanations={MOVE,STAY,NEWVIEW,NOT}
+
+// predicate declarations
+outOfView(oldCluster)
+newView(oldCluster, newCluster)
+looksSimilar(oldCluster, newCluster)
+appeared(newCluster)
+isPersisting(oldCluster)
+is(oldCluster, newCluster, Explanations!)
+moved(oldCluster, newCluster)
+stayed(oldCluster, newCluster)
+disappeared(oldCluster)
+not(oldCluster, newCluster)
+hidden(oldCluster)
+samePos(oldCluster, newCluster)
+
+// formulas
+(moved(o, n) ^ moved(o2, n)) => o=o2.
+(stayed(o, n) ^ stayed(o2, n)) => o=o2.
+(newView(o, n) ^ newView(o2, n)) => o=o2.
+moved(o, n) => (!stayed(o, n) ^ !newView(o, n)).
+stayed(o, n) => (!moved(o, n) ^ !newView(o, n)).
+newView(o, n) => (!moved(o, n) ^ !stayed(o, n)).
+not(o, n) <=> (!moved(o, n) ^ !stayed(o, n) ^ !newView(o, n)).
+(not(o, n) ^ outOfView(o)) <=> hidden(o).
+(not(o, n) ^ !outOfView(o)) <=> disappeared(o).
+not(o, n) <=> appeared(n).
+0.000000    stayed(o, n) <=> (looksSimilar(o, n) ^ samePos(o, n))
+0.000000    moved(o, n) <=> (looksSimilar(o, n) ^ !samePos(o, n))
+0.000000    newView(o, n) <=> (!looksSimilar(o, n) ^ samePos(o, n))

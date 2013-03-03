@@ -1,0 +1,15 @@
+// old: [DB4d]
+// new: [DB9a]
+
+oldClusters={O4}
+newClusters={N9}
+
+0.068965 looksSimilar(O4,N9)
+0.000001 samePos(O4,N9)
+
+
+!is(O4,N9)
+
+explainOld(O4,DISAPPEAR)
+
+explainNew(N9,APPEAR)

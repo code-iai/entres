@@ -1,0 +1,15 @@
+// old: [DB2s]
+// new: [DB2s]
+
+oldClusters={O2}
+newClusters={N2}
+
+0.942248 looksSimilar(O2,N2)
+0.998433 samePos(O2,N2)
+
+
+is(O2,N2)
+
+explainOld(O2,STAY)
+
+explainNew(N2,STAY)

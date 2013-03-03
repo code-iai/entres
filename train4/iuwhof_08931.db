@@ -1,0 +1,43 @@
+// old: [DB7d, DB6s, DB5d, DB1d, DB8p, DB4p]
+// new: [DB6s]
+// persisting: [DB8p, DB4p]
+// outofview: [4, 5]
+//
+// truth: {'visible': [DB6s], 'hidden': [DB8p, DB4p], 'tables': [[DB6s], [DB8p, DB4p]]}
+
+oldClusters={O7,O6,O5,O1,O8,O4}
+newClusters={N6}
+
+0.073322 looksSimilar(O7,N6)
+0.016571 samePos(O7,N6)
+0.961297 looksSimilar(O6,N6)
+0.985383 samePos(O6,N6)
+0.183576 looksSimilar(O5,N6)
+0.000013 samePos(O5,N6)
+0.147479 looksSimilar(O1,N6)
+0.188771 samePos(O1,N6)
+0.062119 looksSimilar(O8,N6)
+0.015774 samePos(O8,N6)
+0.104148 looksSimilar(O4,N6)
+0.068482 samePos(O4,N6)
+
+isPersisting(O8)
+isPersisting(O4)
+outOfView(O8)
+outOfView(O4)
+
+!is(O7,N6)
+is(O6,N6)
+!is(O5,N6)
+!is(O1,N6)
+!is(O8,N6)
+!is(O4,N6)
+
+explainOld(O7,DISAPPEAR)
+explainOld(O6,STAY)
+explainOld(O5,DISAPPEAR)
+explainOld(O1,DISAPPEAR)
+explainOld(O8,PERSIST)
+explainOld(O4,PERSIST)
+
+explainNew(N6,STAY)

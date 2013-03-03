@@ -1,0 +1,26 @@
+// old: [DB2d, DB4m]
+// new: [DB4m, DB8a]
+
+oldClusters={O2,O4}
+newClusters={N4,N8}
+
+0.146097 looksSimilar(O2,N4)
+0.000045 samePos(O2,N4)
+0.827979 looksSimilar(O4,N4)
+0.997064 samePos(O4,N4)
+0.034648 looksSimilar(O2,N8)
+0.000000 samePos(O2,N8)
+0.008067 looksSimilar(O4,N8)
+0.045733 samePos(O4,N8)
+
+
+!is(O2,N4)
+is(O4,N4)
+!is(O2,N8)
+!is(O4,N8)
+
+explainOld(O2,DISAPPEAR)
+explainOld(O4,MOVE)
+
+explainNew(N4,MOVE)
+explainNew(N8,APPEAR)

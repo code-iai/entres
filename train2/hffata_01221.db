@@ -1,0 +1,23 @@
+// old: [DB0d, DB2d, DB3m]
+// new: [DB3m]
+
+oldClusters={O0,O2,O3}
+newClusters={N3}
+
+0.324283 looksSimilar(O0,N3)
+0.001772 samePos(O0,N3)
+0.296564 looksSimilar(O2,N3)
+0.000000 samePos(O2,N3)
+0.948284 looksSimilar(O3,N3)
+0.989248 samePos(O3,N3)
+
+
+!is(O0,N3)
+!is(O2,N3)
+is(O3,N3)
+
+explainOld(O0,DISAPPEAR)
+explainOld(O2,DISAPPEAR)
+explainOld(O3,MOVE)
+
+explainNew(N3,MOVE)

@@ -1,0 +1,19 @@
+// old: [DB3d, DB7d]
+// new: [DB5a]
+
+oldClusters={O3,O7}
+newClusters={N5}
+
+0.013217 looksSimilar(O3,N5)
+0.035909 samePos(O3,N5)
+0.078394 looksSimilar(O7,N5)
+0.000022 samePos(O7,N5)
+
+
+!is(O3,N5)
+!is(O7,N5)
+
+explainOld(O3,DISAPPEAR)
+explainOld(O7,DISAPPEAR)
+
+explainNew(N5,APPEAR)

@@ -1,0 +1,19 @@
+// old: [DB9m]
+// new: [DB9m, DB3a]
+
+oldClusters={O9}
+newClusters={N9,N3}
+
+0.921466 looksSimilar(O9,N9)
+0.991829 samePos(O9,N9)
+0.029824 looksSimilar(O9,N3)
+0.045572 samePos(O9,N3)
+
+
+is(O9,N9)
+!is(O9,N3)
+
+explainOld(O9,MOVE)
+
+explainNew(N9,MOVE)
+explainNew(N3,APPEAR)

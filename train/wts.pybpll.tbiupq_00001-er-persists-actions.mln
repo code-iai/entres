@@ -1,0 +1,26 @@
+// domain declarations
+oldExplanations={MOVE,STAY,NEWVIEW,DISAPPEAR,PERSIST}
+newExplanations={MOVE,STAY,NEWVIEW,APPEAR}
+
+// predicate declarations
+outOfView(oldCluster)
+explainNew(newCluster, newExplanations!)
+is(oldCluster, newCluster)
+looksSimilar(oldCluster, newCluster)
+explainOld(oldCluster, oldExplanations!)
+samePos(oldCluster, newCluster)
+
+// formulas
+(is(a, c) ^ is(b, c)) => a=b.
+(is(c, a) ^ is(c, b)) => a=b.
+53.942735   explainOld(o, STAY)
+42.662908   explainNew(n, STAY)
+0.000000    looksSimilar(o, n) => (samePos(o, n) => (is(o, n) ^ explainOld(o, STAY) ^ explainNew(n, STAY)))
+14.604909   looksSimilar(o, n) => (!samePos(o, n) => (is(o, n) ^ explainOld(o, MOVE) ^ explainNew(n, MOVE)))
+14.604909   !looksSimilar(o, n) => (samePos(o, n) => ((is(o, n) ^ explainOld(o, NEWVIEW) ^ explainNew(n, NEWVIEW)) v (!is(o, n) ^ (explainOld(o, MOVE) v explainOld(o, DISAPPEAR)) ^ (explainNew(n, MOVE) v explainNew(n, APPEAR)))))
+-7.448940   !looksSimilar(o, n) => (!samePos(o, n) => !is(o, n))
+EXIST n (is(o, n)) v explainOld(o, PERSIST) v explainOld(o, DISAPPEAR).
+EXIST o (is(o, n)) v explainNew(n, APPEAR).
+(outOfView(o) ^ !(EXIST n (is(o, n)))) => (explainOld(o, PERSIST) v explainOld(o, DISAPPEAR)).
+-4.712876   explainOld(o, PERSIST)
+explainOld(o, PERSIST) => outOfView(o).

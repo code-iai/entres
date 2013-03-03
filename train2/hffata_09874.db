@@ -1,0 +1,21 @@
+// old: [DB7p, DB1p]
+// new: [DB2s]
+
+oldClusters={O7,O1}
+newClusters={N2}
+
+0.013904 looksSimilar(O7,N2)
+0.005561 samePos(O7,N2)
+0.010499 looksSimilar(O1,N2)
+0.039990 samePos(O1,N2)
+
+outOfView(O7)
+outOfView(O1)
+
+!is(O7,N2)
+!is(O1,N2)
+
+explainOld(O7,PERSIST)
+explainOld(O1,PERSIST)
+
+explainNew(N2,STAY)

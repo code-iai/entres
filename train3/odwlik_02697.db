@@ -1,0 +1,55 @@
+// old: [DB1m, DB6p, DB5p, DB2p, DB0p]
+// new: [DB1m, DB8a]
+
+oldClusters={O1,O6,O5,O2,O0}
+newClusters={N1,N8}
+
+0.827074 looksSimilar(O1,N1)
+0.993924 samePos(O1,N1)
+0.076662 looksSimilar(O6,N1)
+0.000000 samePos(O6,N1)
+0.128898 looksSimilar(O5,N1)
+0.000000 samePos(O5,N1)
+0.119395 looksSimilar(O2,N1)
+0.000000 samePos(O2,N1)
+0.134793 looksSimilar(O0,N1)
+0.000000 samePos(O0,N1)
+0.440859 looksSimilar(O1,N8)
+0.000002 samePos(O1,N8)
+0.011082 looksSimilar(O6,N8)
+0.025582 samePos(O6,N8)
+0.469578 looksSimilar(O5,N8)
+0.038612 samePos(O5,N8)
+0.016507 looksSimilar(O2,N8)
+0.000002 samePos(O2,N8)
+0.508041 looksSimilar(O0,N8)
+0.003852 samePos(O0,N8)
+
+isPersisting(O6)
+isPersisting(O5)
+isPersisting(O2)
+isPersisting(O0)
+outOfView(O6)
+outOfView(O5)
+outOfView(O2)
+outOfView(O0)
+
+is(O1,N1)
+!is(O6,N1)
+!is(O5,N1)
+!is(O2,N1)
+!is(O0,N1)
+!is(O1,N8)
+!is(O6,N8)
+!is(O5,N8)
+!is(O2,N8)
+!is(O0,N8)
+
+explainOld(O1,MOVE)
+explainOld(O6,PERSIST)
+explainOld(O5,PERSIST)
+explainOld(O2,PERSIST)
+explainOld(O0,PERSIST)
+
+explainNew(N1,MOVE)
+explainNew(N8,APPEAR)

@@ -1,0 +1,26 @@
+// old: [DB3d, DB2m]
+// new: [DB2m, DB9a]
+
+oldClusters={O3,O2}
+newClusters={N2,N9}
+
+0.206864 looksSimilar(O3,N2)
+0.015952 samePos(O3,N2)
+0.949724 looksSimilar(O2,N2)
+0.997744 samePos(O2,N2)
+0.096164 looksSimilar(O3,N9)
+0.288980 samePos(O3,N9)
+0.287582 looksSimilar(O2,N9)
+0.000029 samePos(O2,N9)
+
+
+!is(O3,N2)
+is(O2,N2)
+!is(O3,N9)
+!is(O2,N9)
+
+explainOld(O3,DISAPPEAR)
+explainOld(O2,MOVE)
+
+explainNew(N2,MOVE)
+explainNew(N9,APPEAR)

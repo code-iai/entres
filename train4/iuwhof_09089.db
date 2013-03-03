@@ -1,0 +1,73 @@
+// old: [DB5s, DB1m, DB6p, DB4p, DB0p]
+// new: [DB5s, DB2a, DB1m]
+// persisting: [DB6p, DB4p, DB0p]
+// outofview: [2, 3, 4]
+//
+// truth: {'visible': [DB5s, DB2a, DB1m], 'hidden': [DB6p, DB4p, DB0p], 'tables': [[DB5s, DB2a, DB1m], [DB6p, DB4p, DB0p]]}
+
+oldClusters={O5,O1,O6,O4,O0}
+newClusters={N5,N2,N1}
+
+0.831160 looksSimilar(O5,N5)
+0.995983 samePos(O5,N5)
+0.010647 looksSimilar(O1,N5)
+0.593441 samePos(O1,N5)
+0.138643 looksSimilar(O6,N5)
+0.310039 samePos(O6,N5)
+0.031885 looksSimilar(O4,N5)
+0.190559 samePos(O4,N5)
+0.316265 looksSimilar(O0,N5)
+0.392552 samePos(O0,N5)
+0.125451 looksSimilar(O5,N2)
+0.000029 samePos(O5,N2)
+0.028144 looksSimilar(O1,N2)
+0.000056 samePos(O1,N2)
+0.554263 looksSimilar(O6,N2)
+0.000000 samePos(O6,N2)
+0.074138 looksSimilar(O4,N2)
+0.017018 samePos(O4,N2)
+0.112120 looksSimilar(O0,N2)
+0.000303 samePos(O0,N2)
+0.012825 looksSimilar(O5,N1)
+0.528778 samePos(O5,N1)
+0.904229 looksSimilar(O1,N1)
+0.993385 samePos(O1,N1)
+0.043595 looksSimilar(O6,N1)
+0.030047 samePos(O6,N1)
+0.001855 looksSimilar(O4,N1)
+0.106869 samePos(O4,N1)
+0.009119 looksSimilar(O0,N1)
+0.935985 samePos(O0,N1)
+
+isPersisting(O6)
+isPersisting(O4)
+isPersisting(O0)
+outOfView(O6)
+outOfView(O4)
+outOfView(O0)
+
+is(O5,N5)
+!is(O1,N5)
+!is(O6,N5)
+!is(O4,N5)
+!is(O0,N5)
+!is(O5,N2)
+!is(O1,N2)
+!is(O6,N2)
+!is(O4,N2)
+!is(O0,N2)
+!is(O5,N1)
+is(O1,N1)
+!is(O6,N1)
+!is(O4,N1)
+!is(O0,N1)
+
+explainOld(O5,STAY)
+explainOld(O1,MOVE)
+explainOld(O6,PERSIST)
+explainOld(O4,PERSIST)
+explainOld(O0,PERSIST)
+
+explainNew(N5,STAY)
+explainNew(N2,APPEAR)
+explainNew(N1,MOVE)

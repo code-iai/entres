@@ -1,0 +1,19 @@
+// old: [DB4d, DB2d]
+// new: [DB3a]
+
+oldClusters={O4,O2}
+newClusters={N3}
+
+0.146783 looksSimilar(O4,N3)
+0.012001 samePos(O4,N3)
+0.328334 looksSimilar(O2,N3)
+0.005284 samePos(O2,N3)
+
+
+!is(O4,N3)
+!is(O2,N3)
+
+explainOld(O4,DISAPPEAR)
+explainOld(O2,DISAPPEAR)
+
+explainNew(N3,APPEAR)

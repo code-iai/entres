@@ -1,0 +1,19 @@
+// old: [DB1m]
+// new: [DB7a, DB1m]
+
+oldClusters={O1}
+newClusters={N7,N1}
+
+0.000153 looksSimilar(O1,N7)
+0.056842 samePos(O1,N7)
+0.965016 looksSimilar(O1,N1)
+0.986419 samePos(O1,N1)
+
+
+!is(O1,N7)
+is(O1,N1)
+
+explainOld(O1,MOVE)
+
+explainNew(N7,APPEAR)
+explainNew(N1,MOVE)

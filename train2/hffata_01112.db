@@ -1,0 +1,26 @@
+// old: [DB8m, DB6s]
+// new: [DB6s, DB8m]
+
+oldClusters={O8,O6}
+newClusters={N6,N8}
+
+0.203958 looksSimilar(O8,N6)
+0.000001 samePos(O8,N6)
+0.983696 looksSimilar(O6,N6)
+0.990746 samePos(O6,N6)
+0.901913 looksSimilar(O8,N8)
+0.999847 samePos(O8,N8)
+0.445360 looksSimilar(O6,N8)
+0.000001 samePos(O6,N8)
+
+
+!is(O8,N6)
+is(O6,N6)
+is(O8,N8)
+!is(O6,N8)
+
+explainOld(O8,MOVE)
+explainOld(O6,STAY)
+
+explainNew(N6,STAY)
+explainNew(N8,MOVE)

@@ -1,0 +1,53 @@
+// old: [DB2s, DB4d, DB7m, DB9s]
+// new: [DB2s, DB9s, DB7m]
+
+oldClusters={O2,O4,O7,O9}
+newClusters={N2,N9,N7}
+
+0.832496 looksSimilar(O2,N2)
+0.997364 samePos(O2,N2)
+0.115234 looksSimilar(O4,N2)
+0.075361 samePos(O4,N2)
+0.011744 looksSimilar(O7,N2)
+0.000000 samePos(O7,N2)
+0.288964 looksSimilar(O9,N2)
+0.000000 samePos(O9,N2)
+0.177763 looksSimilar(O2,N9)
+0.000000 samePos(O2,N9)
+0.054189 looksSimilar(O4,N9)
+0.000031 samePos(O4,N9)
+0.005119 looksSimilar(O7,N9)
+0.000016 samePos(O7,N9)
+0.943630 looksSimilar(O9,N9)
+0.974249 samePos(O9,N9)
+0.056495 looksSimilar(O2,N7)
+0.000000 samePos(O2,N7)
+0.002218 looksSimilar(O4,N7)
+0.000018 samePos(O4,N7)
+0.930228 looksSimilar(O7,N7)
+0.989404 samePos(O7,N7)
+0.006508 looksSimilar(O9,N7)
+0.000011 samePos(O9,N7)
+
+
+is(O2,N2)
+!is(O4,N2)
+!is(O7,N2)
+!is(O9,N2)
+!is(O2,N9)
+!is(O4,N9)
+!is(O7,N9)
+is(O9,N9)
+!is(O2,N7)
+!is(O4,N7)
+is(O7,N7)
+!is(O9,N7)
+
+explainOld(O2,STAY)
+explainOld(O4,DISAPPEAR)
+explainOld(O7,MOVE)
+explainOld(O9,STAY)
+
+explainNew(N2,STAY)
+explainNew(N9,STAY)
+explainNew(N7,MOVE)

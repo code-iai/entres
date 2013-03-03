@@ -1,0 +1,63 @@
+// domain declarations
+oldExplanations={MOVE,STAY,NEWVIEW,DISAPPEAR,PERSIST}
+newExplanations={MOVE,STAY,NEWVIEW,APPEAR}
+
+// predicate declarations
+// queries
+is(oldCluster, newCluster)
+
+explainOld(oldCluster, oldExplanations!)
+explainNew(newCluster, newExplanations!)
+
+// evidence
+looksSimilar(oldCluster, newCluster)
+samePos(oldCluster, newCluster)
+
+isPersisting(oldCluster)
+outOfView(oldCluster)
+
+// formulas
+(is(a, c) ^ is(b, c)) => a=b.
+(is(c, a) ^ is(c, b)) => a=b.
+
+5 ( looksSimilar(o,n) ^  samePos(o,n)) => is(o,n)
+5 ( looksSimilar(o,n) ^ !samePos(o,n) ^ explainOld(o,MOVE)    ^ explainNew(n,MOVE)) => is(o,n) 
+5 (!looksSimilar(o,n) ^  samePos(o,n) ^ explainOld(o,NEWVIEW) ^ explainNew(n,NEWVIEW)) => is(o,n)
+
+//5 is(o,n) => (( looksSimilar(o,n) ^ samePos(o,n)) v ( looksSimilar(o,n) ^ !samePos(o,n) ^ explainOld(o,MOVE) ^ explainNew(n,MOVE)) v (!looksSimilar(o,n) ^ samePos(o,n) ^ explainOld(o,NEWVIEW) ^ explainNew(n,NEWVIEW)))
+
+5 explainOld(o,MOVE) <=> EXIST n (is(o,n) ^ explainNew(n,MOVE) ^ !samePos(o,n))
+5 explainNew(n,MOVE) <=> EXIST o (is(o,n) ^ explainOld(o,MOVE) ^ !samePos(o,n))
+
+5 explainOld(o,STAY) <=> EXIST n (is(o,n) ^ explainNew(n,STAY) ^ samePos(o,n))
+5 explainNew(n,STAY) <=> EXIST o (is(o,n) ^ explainOld(o,STAY) ^ samePos(o,n))
+
+5 explainOld(o,NEWVIEW) <=> EXIST n (is(o,n) ^ explainNew(n,NEWVIEW) ^ samePos(o,n) ^ !looksSimilar(o,n))
+5 explainNew(n,NEWVIEW) <=> EXIST o (is(o,n) ^ explainOld(o,NEWVIEW) ^ samePos(o,n) ^ !looksSimilar(o,n))
+
+5 explainOld(o,DISAPPEAR) <=> !outOfView(o) ^ !(EXIST n (is(o,n)))
+5 explainOld(o,PERSIST) <=> outOfView(o) ^ !(EXIST n (is(o,n)))
+// <=> ??
+
+5 explainNew(n,APPEAR) <=> !(EXIST o (is(o,n)))
+
+
+
+
+
+/*0.951528    explainOld(o, STAY)
+0.940935    explainNew(n, STAY)
+0.000000    looksSimilar(o, n) => (samePos(o, n) => (is(o, n) ^ explainOld(o, STAY) ^ explainNew(n, STAY)))
+53.059642   looksSimilar(o, n) => (!samePos(o, n) => (is(o, n) ^ explainOld(o, MOVE) ^ explainNew(n, MOVE)))
+51.976317   !looksSimilar(o, n) => (samePos(o, n) => ((is(o, n) ^ explainOld(o, NEWVIEW) ^ explainNew(n, NEWVIEW)) v (!is(o, n) ^ (explainOld(o, MOVE) v explainOld(o, DISAPPEAR)) ^ (explainNew(n, MOVE) v explainNew(n, APPEAR)))))
+-1.775729   (!looksSimilar(o, n) ^ !samePos(o, n)) => !is(o, n)
+EXIST n (is(o, n)) v explainOld(o, PERSIST) v explainOld(o, DISAPPEAR).
+EXIST o (is(o, n)) v explainNew(n, APPEAR).
+(outOfView(o) ^ !(EXIST n (is(o, n)))) => explainOld(o, PERSIST).
+explainOld(o, PERSIST) => outOfView(o).
+0.006608    (EXIST n (is(o, n)) ^ isPersisting(o)) => explainNew(n, STAY)
+-1.081224   (isPersisting(o) ^ !(EXIST n (is(o, n)))) => explainOld(o, PERSIST)
+32.880362   (isPersisting(o) ^ outOfView(o)) => explainOld(o, PERSIST)
+30.579410   explainOld(o, PERSIST) => !(EXIST n (is(o, n)))*/
+
+

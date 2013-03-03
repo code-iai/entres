@@ -1,0 +1,15 @@
+// old: [DB2d]
+// new: [DB5a]
+
+oldClusters={O2}
+newClusters={N5}
+
+0.055302 looksSimilar(O2,N5)
+0.000000 samePos(O2,N5)
+
+
+!is(O2,N5)
+
+explainOld(O2,DISAPPEAR)
+
+explainNew(N5,APPEAR)

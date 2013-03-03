@@ -1,0 +1,19 @@
+// old: [DB1m, DB6d]
+// new: [DB1m]
+
+oldClusters={O1,O6}
+newClusters={N1}
+
+0.916154 looksSimilar(O1,N1)
+0.993934 samePos(O1,N1)
+0.072451 looksSimilar(O6,N1)
+0.627722 samePos(O6,N1)
+
+
+is(O1,N1)
+!is(O6,N1)
+
+explainOld(O1,MOVE)
+explainOld(O6,DISAPPEAR)
+
+explainNew(N1,MOVE)

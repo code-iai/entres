@@ -1,0 +1,62 @@
+// old: [DB1d, DB2d, DB3m, DB0s, DB8p, DB5p]
+// new: [DB0s, DB3m]
+// persisting: [DB8p, DB5p]
+// outofview: [4, 5]
+//
+// truth: {'visible': [DB0s, DB3m], 'hidden': [DB8p, DB5p], 'tables': [[DB8p, DB5p], [DB0s, DB3m]]}
+
+oldClusters={O1,O2,O3,O0,O8,O5}
+newClusters={N0,N3}
+
+0.030914 looksSimilar(O1,N0)
+0.000000 samePos(O1,N0)
+0.093485 looksSimilar(O2,N0)
+0.958653 samePos(O2,N0)
+0.179912 looksSimilar(O3,N0)
+0.043256 samePos(O3,N0)
+0.887995 looksSimilar(O0,N0)
+0.995518 samePos(O0,N0)
+0.024782 looksSimilar(O8,N0)
+0.000000 samePos(O8,N0)
+0.419506 looksSimilar(O5,N0)
+0.000000 samePos(O5,N0)
+0.018976 looksSimilar(O1,N3)
+0.001057 samePos(O1,N3)
+0.085773 looksSimilar(O2,N3)
+0.057093 samePos(O2,N3)
+0.842275 looksSimilar(O3,N3)
+0.986988 samePos(O3,N3)
+0.088004 looksSimilar(O0,N3)
+0.050217 samePos(O0,N3)
+0.021498 looksSimilar(O8,N3)
+0.002931 samePos(O8,N3)
+0.022873 looksSimilar(O5,N3)
+0.000137 samePos(O5,N3)
+
+isPersisting(O8)
+isPersisting(O5)
+outOfView(O8)
+outOfView(O5)
+
+!is(O1,N0)
+!is(O2,N0)
+!is(O3,N0)
+is(O0,N0)
+!is(O8,N0)
+!is(O5,N0)
+!is(O1,N3)
+!is(O2,N3)
+is(O3,N3)
+!is(O0,N3)
+!is(O8,N3)
+!is(O5,N3)
+
+explainOld(O1,DISAPPEAR)
+explainOld(O2,DISAPPEAR)
+explainOld(O3,MOVE)
+explainOld(O0,STAY)
+explainOld(O8,PERSIST)
+explainOld(O5,PERSIST)
+
+explainNew(N0,STAY)
+explainNew(N3,MOVE)

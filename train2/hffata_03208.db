@@ -1,0 +1,26 @@
+// old: [DB1m, DB2m]
+// new: [DB1m, DB2m]
+
+oldClusters={O1,O2}
+newClusters={N1,N2}
+
+0.957771 looksSimilar(O1,N1)
+0.997590 samePos(O1,N1)
+0.061540 looksSimilar(O2,N1)
+0.000000 samePos(O2,N1)
+0.015492 looksSimilar(O1,N2)
+0.000000 samePos(O1,N2)
+0.933162 looksSimilar(O2,N2)
+0.999425 samePos(O2,N2)
+
+
+is(O1,N1)
+!is(O2,N1)
+!is(O1,N2)
+is(O2,N2)
+
+explainOld(O1,MOVE)
+explainOld(O2,MOVE)
+
+explainNew(N1,MOVE)
+explainNew(N2,MOVE)
