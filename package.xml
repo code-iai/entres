@@ -1,0 +1,22 @@
+<package>
+  <name>entres</name>
+  <version>1.0.0</version>
+  <description>entres</description>
+  <maintainer email="nico@todo.todo">Nico Blodow</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/entres</url>
+
+  <author>Nico Blodow</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>rospy</run_depend>
+
+  <export>
+
+  </export>
+</package>
